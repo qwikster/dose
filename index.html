@@ -15,11 +15,14 @@
         <!-- INPUT -->
         <section id="input-section" class="panel">
             <h2>what did you get?</h2>
-            <form id="candy-form">
+            <form id="candy-form" novalidate>
                 <div class="candy-entry">
                     <input type="text" name="name" class="candy-name" placeholder="candy" required>
                     <input type="number" name="qty" class="candy-qty" placeholder="qty" min="1" required>
-                    <span class="rating">★★★★★</span>
+                    <div class="rating-slider" data-rating="0">
+                        <div class="stars empty">★★★★★</div>
+                        <div class="stars filled">★★★★★</div>
+                    </div>
                 </div>
                 <div class="candy-buttons">
                     <button type="button" id="add-candy">+ new candy</button>
@@ -37,7 +40,7 @@
     <footer>
         
     </footer>
-
+    <script src="slider.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

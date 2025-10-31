@@ -53,8 +53,8 @@ main {
     border-radius: 8px;
     padding: 2rem;
     margin: 1rem 0;
-    width: 40%;
-    max-width: 700;
+    width: 90%;
+    max-width: 800px;
 }
 
 form {
@@ -79,9 +79,15 @@ h2 {
     background-color: #00000F;
     color: #e6e6e6;
     text-align: center;
-    border: 3px solid #ff8b3ddd;
+    border: 3px solid #ff8b3dcc;
     padding: 0.5rem;
     border-radius: 8px;
+    transition: border 0.2s ease;
+}
+
+.candy-entry input:focus {
+    border: 3px solid #ff8b3d;
+    outline: none;
 }
 
 .candy-entry input[type=number] {
@@ -100,14 +106,44 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
     gap: 0.5rem;
 }
 
-.rating {
-    color: #ff8b3d;
-    font-size: 30px;
+.rating-slider {
+    --star-size: 34px;
+    --gap: 4px;
+    --filled: #ff8b3d;
+    --empty: #141438;
+    position: relative;
+    height: 37px;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items:center;
     background-color: #00000F;
-    border: 3px solid #ff8b3ddd;
+    border: 3px solid #ff8b3dcc;
     border-radius: 8px;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding: 0 0.5rem;
+}
+
+.rating-slider .stars {
+    display: flex;
+    gap: var(--gap);
+    font-size: var(--star-size);
+    line-height: 1;
+}
+
+.rating-slider .empty {
+    color: var(--empty);
+    transform: translateY(-3px);
+}
+
+.rating-slider .filled {
+    color: var(--filled);
+    position: absolute;
+    top: 0; left: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 0;
+    transition: none;
+    transform: translateY(-3px);
 }
 
 .candy-name {
@@ -119,7 +155,7 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
 }
 
 button {
-    background-color: #ff8b3d;
+    background-color: #ff8b3ddd;
     border: none;
     color: #111;
     font-weight: bold;
@@ -130,5 +166,11 @@ button {
 }
 
 button:hover {
-    background-color: #ff8b3ddd;
+    background-color: #ff8b3d;
+}
+
+
+
+#calendar {
+    display: grid;
 }
