@@ -17,9 +17,13 @@
             <h2>what did you get?</h2>
             <form id="candy-form">
                 <div class="candy-entry">
-                    <input type="number" name="name" placeholder="candy" required>
-                    <input type="number" name="qty" placeholder="qty" min="1" required>
-                    <input type="number" name="rating" placeholder="rating" min="1" max="5" required>
+                    <input type="text" name="name" class="candy-name" placeholder="candy" required>
+                    <input type="number" name="qty" class="candy-qty" placeholder="qty" min="1" required>
+                    <span class="rating">★★★★★</span>
+                </div>
+                <div class="candy-buttons">
+                    <button type="button" id="add-candy">+ new candy</button>
+                    <button type="submit" id="generate">>> go!</button>
                 </div>
             </form>
         </section>

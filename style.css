@@ -39,3 +39,96 @@ h1 {
     text-transform: uppercase;
     letter-spacing: 0.15rem;
 }
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+}
+
+.panel {
+    background-color: #141438;
+    border: 1px solid #2a2a5f;
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 1rem 0;
+    width: 40%;
+    max-width: 700;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #e6e6e6;
+}
+
+.candy-entry {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.candy-entry input {
+    flex: 1;
+    background-color: #00000F;
+    color: #e6e6e6;
+    text-align: center;
+    border: 3px solid #ff8b3ddd;
+    padding: 0.5rem;
+    border-radius: 8px;
+}
+
+.candy-entry input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.candy-buttons {
+    display: flex;
+    align-self: center;
+    gap: 0.5rem;
+}
+
+.rating {
+    color: #ff8b3d;
+    font-size: 30px;
+    background-color: #00000F;
+    border: 3px solid #ff8b3ddd;
+    border-radius: 8px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.candy-name {
+    min-width: 60%;
+}
+
+.candy-qty {
+    width: 15%;
+}
+
+button {
+    background-color: #ff8b3d;
+    border: none;
+    color: #111;
+    font-weight: bold;
+    padding: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+button:hover {
+    background-color: #ff8b3ddd;
+}
