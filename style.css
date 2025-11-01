@@ -173,8 +173,45 @@ button:hover {
     background-color: #ff8b3d;
 }
 
-
+a {
+    color: #3db1ff;
+    transition: 0.2s ease-in-out;
+}
+a:hover {
+    color: #3df1ff
+}
 
 #calendar {
     display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.calendar-day {
+    background-color: #00000F;
+    border: 1px solid #141438;
+    border-radius: 4px;
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    position: relative;
+}
+
+.calendar-day[data-candy]:hover::after {
+    content: attr(data-candy);
+    position: absolute;
+    top: -1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff8b3d;
+    color: #111;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.75rem;
+}
+
+
+.hidden {
+    display: none;
 }
