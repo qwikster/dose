@@ -74,6 +74,11 @@ h2 {
     gap: 0.5rem;
 }
 
+.candy-entry-low {
+    display: flex;
+    gap: 0.5rem;
+}
+
 .candy-entry input {
     flex: 1;
     background-color: #00000F;
@@ -112,15 +117,15 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
     --filled: #ff8b3d;
     --empty: #141438;
     position: relative;
-    height: 37px;
     cursor: pointer;
     user-select: none;
-    display: flex;
     align-items:center;
     background-color: #00000F;
     border: 3px solid #ff8b3dcc;
     border-radius: 8px;
     padding: 0 0.5rem;
+    width: 140px;
+    margin-bottom: 0.5rem;
 }
 
 .rating-slider .stars {
@@ -132,6 +137,7 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
 
 .rating-slider .empty {
     color: var(--empty);
+    width: 120px;
     transform: translateY(-3px);
 }
 
@@ -152,10 +158,13 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
 
 .candy-name {
     min-width: 60%;
+    margin-bottom: 0.5rem;
 }
 
 .candy-qty {
     width: 15%;
+    min-width: 60px;
+    margin-bottom: 0.5rem;
 }
 
 button {
@@ -211,7 +220,21 @@ a:hover {
     font-size: 0.75rem;
 }
 
+hr {
+    border-color: #2a2a5f;
+    transform: translateY(-4px);
+}
 
 .hidden {
     display: none;
+}
+
+@media (max-width: 800px) {
+    .candy-entry {
+        display: block;
+    }
+
+    .candy-name {
+        width: 100%
+    }
 }

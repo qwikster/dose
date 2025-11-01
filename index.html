@@ -18,20 +18,24 @@
             <form id="candy-form" novalidate>
                 <div class="candy-entry">
                     <input type="text" name="name" class="candy-name" placeholder="candy" required>
-                    <input type="number" name="qty" class="candy-qty" placeholder="qty" min="1" required>
-                    <div class="rating-slider" data-rating="0">
-                        <div class="stars empty">
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                        </div>
-                        <div class="stars filled">
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    <div class="candy-entry-low">
+                        <input type="number" name="qty" class="candy-qty" placeholder="qty" min="1" required>
+                        <div class="rating-slider" data-rating="0">
+                            <div class="stars empty">
+                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                            </div>
+                            <div class="stars filled">
+                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <hr>
                 <div class="candy-buttons">
                     <button type="button" id="add-candy">+ new candy</button>
                     <button type="submit" id="generate">>> go!</button>
                 </div>
+                
             </form>
         </section>
 
