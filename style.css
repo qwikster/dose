@@ -139,11 +139,15 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
     color: var(--filled);
     position: absolute;
     top: 0;
+    transform: translateY(-3px);
+    display: inline-block;
+    font-size: var(--star-size);
+    line-height: 1;
+    letter-spacing: var(--gap);
     overflow: hidden;
     white-space: nowrap;
     width: 0;
     transition: none;
-    transform: translateY(-3px);
 }
 
 .candy-name {
