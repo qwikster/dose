@@ -89,14 +89,14 @@ h2 {
     background-color: #00000F;
     color: #e6e6e6;
     text-align: center;
-    border: 3px solid #ff8b3dcc;
+    border: 3px solid #ff8b3d;
     padding: 0.5rem;
     border-radius: 8px;
     transition: border 0.2s ease;
 }
 
 .candy-entry input:focus {
-    border: 3px solid #ff8b3d;
+    border: 3px solid #3db1ff;
     outline: none;
 }
 
@@ -121,13 +121,13 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
     --gap: 4px;
     --filled: #ff8b3d;
     --empty: #141438;
-    --hover: #222;
+    --hover: #3db1ff;
     position: relative;
     cursor: pointer;
     user-select: none;
     align-items:center;
     background-color: #00000F;
-    border: 3px solid #ff8b3dcc;
+    border: 3px solid #ff8b3d;
     border-radius: 8px;
     padding: 0 0.5rem;
     margin-bottom: 0.5rem;
@@ -169,7 +169,8 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
     letter-spacing: var(--gap);
     overflow: hidden;
     white-space: nowrap;
-    transition: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
 }
 
 .candy-name {
@@ -184,7 +185,7 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
 }
 
 button {
-    background-color: #ff8b3ddd;
+    background-color: #ff8b3d;
     border: none;
     color: #111;
     font-weight: bold;
@@ -196,8 +197,8 @@ button {
 }
 
 button:hover {
-    background-color: #ff8b3d;
-    transform:scale(1.1);
+    transform: scale(1.1);
+    background-color: #3db1ff;
     transition: all 0.3s ease;
 }
 

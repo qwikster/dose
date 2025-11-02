@@ -30,6 +30,9 @@ addCandyBtn.addEventListener('click', () => {
                 <div class="stars filled">
                     <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                 </div>
+                <div class="stars hover">
+                    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div>
             </div>
         </div>`
     buttons = document.getElementById('candy-buttons');

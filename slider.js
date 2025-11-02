@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function initSlider(slider) {
         const filled = slider.querySelector('.filled');
         const empty = slider.querySelector('.empty');
+        const hover = slider.querySelector('.hover');
         let starW, gap, totalW, dragging = false, startTime = 0;
 
         function init() {
@@ -33,6 +34,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function setFill(w) { filled.style.width = w + 'px'; }
 
+        function setHover(w) { hover.style.width = w + 'px'; }
+
+        function showHover(e) {
+            if (dragging) return;
+            const x = e.clientX;
+            const star = getStarFromPos(x);
+            setHover(widthFor(star));
+            hover.style.opacity = '1';
+        }
+
+        function hideHover() {
+            hover.style.opacity = '0';
+        }
+
         function snap(clientX, quickClick = false) {
             const star = getStarFromPos(clientX);
             slider.dataset.rating = star;
@@ -48,11 +63,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     filled.addEventListener('transitionend', () => {
                         filled.style.transition = 'width 0.22s cubic-bezier(0.2,0.8,0.4,1)';
                         setFill(snappedW);
+                        hideHover();
                     }, {once: true});
                 }
             } else {
                 filled.style.transition = 'width 0.35s cubic-bezier(0.18,0.89,0.32,1.28)';
                 setFill(snappedW);
+                hideHover();
             }
         }
 
@@ -63,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
             filled.style.transition = 'width 0.2s ease-in-out';
             const x = e.touches ? e.touches[0].clientX : e.clientX;
             setFill((ratingFromX(x) / 5) * totalW);
+            hideHover();
         }
 
         function onMove(e) {
@@ -87,6 +105,9 @@ document.addEventListener('DOMContentLoaded', () => {
         slider.addEventListener('touchstart', onStart, {passive:false});
         document.addEventListener('touchmove', onMove, {passive:false});
         document.addEventListener('touchend', onEnd);
+        slider.addEventListener('mousemove', showHover);
+        slider.addEventListener('mouseenter', showHover);
+        slider.addEventListener('mouseleave', hideHover);
     }
 
     document.querySelectorAll('.rating-slider').forEach(initSlider);
