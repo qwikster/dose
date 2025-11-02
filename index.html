@@ -38,8 +38,18 @@
                 </div>
                 <hr>
                 <div class="candy-buttons" id="candy-buttons">
+                    <input type="date" id="date" class="candy-date" value="2026-10-31" min="2025-10-31" max="2030-10-31">
+                    <div style="border-left:1px solid #2a2a5f;"></div>
                     <button type="button" id="add-candy">+ new candy</button>
                     <button type="submit" id="generate">>> go!</button>
+                    <div style="border-left:1px solid #2a2a5f;"></div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="mode-toggle" checked>
+                        <span class="toggle-slider">
+                            <span class="toggle-label random">random</span>
+                            <span class="toggle-label balanced">balanced</span>
+                        </span>
+                    </label>
                 </div>
                 
             </form>

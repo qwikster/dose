@@ -4,10 +4,12 @@ const inputSection = document.getElementById('input-section');
 const calendarSection = document.getElementById('calendar-section');
 const calendarEl = document.getElementById('calendar');
 const resetBtn = document.getElementById('reset');
+const dateInput = document.getElementById('date');
 
 form.addEventListener('submit', e => {
     e.preventDefault();
-    showCalendar();
+    const endDate = getEndDate();
+    showCalendar(endDate);
 });
 
 resetBtn.addEventListener('click', () => {
@@ -15,6 +17,23 @@ resetBtn.addEventListener('click', () => {
     inputSection.classList.remove('hidden');
     calendarSection.classList.add('hidden');
 });
+
+function getEndDate() {
+    const today = new Date();
+    const defaultDate = new Date('2026-10-31');
+    let inputDate;
+
+    try {
+        if (dateInput && dateInput.value) {
+            inputDate = new Date(dateInput.value);
+            if (isNaN(inputDate.getTime()) || inputDate < today) {
+                return defaultDate;
+            }
+            return inputDate
+        }
+    } catch {  } //default
+    return defaultDate;
+}
 
 addCandyBtn.addEventListener('click', () => {
     const div = document.createElement('div');
@@ -41,17 +60,14 @@ addCandyBtn.addEventListener('click', () => {
     form.insertBefore(br, buttons);
 });
 
-function showCalendar() {
+function showCalendar(endDate) {
+    const today = new Date();
     inputSection.classList.add('hidden');
     calendarSection.classList.remove('hidden');
     calendarEl.innerHTML = '';
 
-    const today = new Date();
-    const year = today.getFullYear() + 1;
-    const end = new Date(year, 9, 31); // halloween
-
     const days = []
-    for (let d = new Date(today); d <= end;
+    for (let d = new Date(today); d <= endDate;
     d.setDate(d.getDate() + 1)) {
         days.push(new Date(d));
     }
