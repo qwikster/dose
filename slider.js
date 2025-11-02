@@ -2,12 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function initSlider(slider) {
         const filled = slider.querySelector('.filled');
         const empty = slider.querySelector('.empty');
-        let starW, gap, totalW, dragging = false, startTime = 0
-        
+        let starW, gap, totalW, dragging = false, startTime = 0;
+
         function init() {
             const first = empty.children[0];
             starW = first.getBoundingClientRect().width;
-            gap   = parseFloat(getComputedStyle(empty).gap) || 0;
+            gap = parseFloat(getComputedStyle(empty).gap) || 0;
             totalW = empty.getBoundingClientRect().width;
         }
 
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             x = Math.max(0, Math.min(r.width, x - r.left));
             let pos = 0;
             for (let i = 1; i <= 5; i++) {
-                const right = pos + starW + (i < 5 ? gap : 0)
+                const right = pos + starW + (i < 5 ? gap : 0);
                 if (x < right) return i;
                 pos = right;
             }
@@ -42,22 +42,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (quickClick) {
                 const currentW = parseFloat(getComputedStyle(filled).width);
                 if (Math.abs(currentW - cursorW) < 1) {
-                    filled.style.transition = 'width 0.22s cubic-bezier(0.2, 0.8, 0.4, 1)';
+                    filled.style.transition = 'width 0.22s cubic-bezier(0.2,0.8,0.4,1)';
                     setFill(snappedW);
                 } else {
                     filled.addEventListener('transitionend', () => {
-                        filled.style.transition = 'width 0.22s cubic-bezier(0.2, 0.8, 0.4, 1)';
+                        filled.style.transition = 'width 0.22s cubic-bezier(0.2,0.8,0.4,1)';
                         setFill(snappedW);
                     }, {once: true});
                 }
             } else {
-                filled.style.transition = 'width 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28)';
+                filled.style.transition = 'width 0.35s cubic-bezier(0.18,0.89,0.32,1.28)';
                 setFill(snappedW);
             }
         }
 
         function onStart(e) {
-            e.preventDefault(); 
+            e.preventDefault();
             dragging = true;
             startTime = Date.now();
             filled.style.transition = 'width 0.2s ease-in-out';
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function onMove(e) {
             if (!dragging) return;
-            filled.style.transition = 'none'
+            filled.style.transition = 'none';
             const x = e.touches ? e.touches[0].clientX : e.clientX;
             setFill((ratingFromX(x) / 5) * totalW);
         }
@@ -89,14 +89,15 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('touchend', onEnd);
     }
 
-    const sliders = document.querySelectorAll('.rating-slider');
-    sliders.forEach(initSlider);
+    document.querySelectorAll('.rating-slider').forEach(initSlider);
 
     const observer = new MutationObserver(mutations => {
-        mutations.fofEach(mutation => {
+        mutations.forEach(mutation => {
             mutation.addedNodes.forEach(node => {
-                if (node.nodeType !== 1) return
-                const newSliders = node.matches('.rating-slider') ? [node] : node.querySelectorAll('rating-slider');
+                if (node.nodeType !== 1) return;
+                const newSliders = node.matches('.rating-slider')
+                    ? [node]
+                    : node.querySelectorAll('.rating-slider');
                 newSliders.forEach(initSlider);
             });
         });
