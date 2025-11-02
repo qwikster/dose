@@ -2,10 +2,15 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scrollbar-width: none;
+}
+
+html {
+    scrollbar-gutter: stable;
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: Roboto;
     background-color: #00000F;
     color: #e6e6e6;
     display: flex;
@@ -116,6 +121,7 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
     --gap: 4px;
     --filled: #ff8b3d;
     --empty: #141438;
+    --hover: #222;
     position: relative;
     cursor: pointer;
     user-select: none;
@@ -124,7 +130,6 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
     border: 3px solid #ff8b3dcc;
     border-radius: 8px;
     padding: 0 0.5rem;
-    width: 140px;
     margin-bottom: 0.5rem;
 }
 
@@ -137,15 +142,12 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
 
 .rating-slider .empty {
     color: var(--empty);
-    width: 120px;
-    transform: translateY(-3px);
 }
 
 .rating-slider .filled {
     color: var(--filled);
     position: absolute;
     top: 0;
-    transform: translateY(-3px);
     display: inline-block;
     font-size: var(--star-size);
     line-height: 1;
@@ -153,6 +155,20 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
     overflow: hidden;
     white-space: nowrap;
     width: 0;
+    transition: none;
+}
+
+.rating-slider .hover {
+    color: var(--hover);
+    width: 0;
+    position: absolute;
+    top: 0;
+    display: inline-block;
+    font-size: var(--star-size);
+    line-height: 1;
+    letter-spacing: var(--gap);
+    overflow: hidden;
+    white-space: nowrap;
     transition: none;
 }
 
