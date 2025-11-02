@@ -135,6 +135,8 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
     display: flex;
     align-self: center;
     gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .rating-slider {
@@ -344,5 +346,28 @@ hr {
 
     .candy-name {
         width: 100%
+    }
+
+    .candy-qty {
+        width: unset;
+    }
+}
+
+@media (max-width: 600px) {
+    .candy-entry-low {
+        flex-direction: column;
+    }
+    .candy-buttons {
+        gap: 0.75rem 0.5rem;
+    }
+    .toggle-switch {
+        width: 140px;
+    }
+    .toggle-slider::before {
+        width: 60px;
+    }
+
+    .toggle-switch input:checked + .toggle-slider::before {
+        transform: translateX(70px);
     }
 }
