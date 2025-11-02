@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const star = getStarFromPos(x);
             setHover(widthFor(star));
             hover.style.opacity = '1';
-            slider.style.borderColor = '#3db1ff';
+            slider.style.borderColor = '#660099';
         }
 
         function hideHover() {

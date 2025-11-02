@@ -96,7 +96,7 @@ h2 {
 }
 
 .candy-entry input:focus {
-    border: 3px solid #3db1ff;
+    border: 3px solid #660099;
     outline: none;
 }
 
@@ -121,7 +121,7 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
     --gap: 4px;
     --filled: #ff8b3d;
     --empty: #141438;
-    --hover: #3db1ff;
+    --hover: #660099;
     position: relative;
     cursor: pointer;
     user-select: none;
@@ -198,8 +198,8 @@ button {
 }
 
 button:hover {
-    transform: scale(1.1);
-    background-color: #3db1ff;
+    transform: scale(1.05);
+    background-color: #660099;
     transition: all 0.3s ease;
 }
 
