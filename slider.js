@@ -42,10 +42,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const star = getStarFromPos(x);
             setHover(widthFor(star));
             hover.style.opacity = '1';
+            slider.style.borderColor = '#3db1ff';
         }
 
         function hideHover() {
             hover.style.opacity = '0';
+        }
+
+        function resetBox() {
+            slider.style.borderColor = '#ff8b3d';
         }
 
         function snap(clientX, quickClick = false) {
@@ -53,6 +58,11 @@ document.addEventListener('DOMContentLoaded', () => {
             slider.dataset.rating = star;
             const snappedW = widthFor(star);
             const cursorW = (ratingFromX(clientX) / 5) * totalW;
+
+            function finish() {
+                hideHover();
+                resetBox();
+            }
 
             if (quickClick) {
                 const currentW = parseFloat(getComputedStyle(filled).width);
@@ -63,13 +73,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     filled.addEventListener('transitionend', () => {
                         filled.style.transition = 'width 0.22s cubic-bezier(0.2,0.8,0.4,1)';
                         setFill(snappedW);
-                        hideHover();
+                        finish();
                     }, {once: true});
                 }
             } else {
                 filled.style.transition = 'width 0.35s cubic-bezier(0.18,0.89,0.32,1.28)';
                 setFill(snappedW);
-                hideHover();
+                filled.addEventListener('transitionend', finish, {once:true});
             }
         }
 
@@ -108,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         slider.addEventListener('mousemove', showHover);
         slider.addEventListener('mouseenter', showHover);
         slider.addEventListener('mouseleave', hideHover);
+        slider.addEventListener('mouseleave', resetBox);
     }
 
     document.querySelectorAll('.rating-slider').forEach(initSlider);
