@@ -355,14 +355,14 @@ hr {
 .toggle-label.random { margin-left: 4px; }
 .toggle-label.balanced { margin-right: 4px; }
 
-.toggle-switch input:not(:checked) + toggle-slider .random,
-.toggle-switch input:checked + toggle-slider .balanced {
+.toggle-switch input:not(:checked) + .toggle-slider .random,
+.toggle-switch input:checked + .toggle-slider .balanced {
     color: #ff8b3d;
 }
 
-.toggle-switch input:checked + toggle-slider .random,
-.toggle-switch input:not(:checked) + toggle-slider .balanced {
-    color: #666;
+.toggle-switch input:checked + .toggle-slider .random,
+.toggle-switch input:not(:checked) + .toggle-slider .balanced {
+    color: #00000F;
 }
 
 .hidden {

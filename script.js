@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const isBalanced = document.getElementById('mode-toggle').checked;
+        const isBalanced = !document.getElementById('mode-toggle').checked;
         let allItems = [];
         candies.forEach(c => {
             for (let i = 0; i < c.qty; i++) allItems.push({ name: c.name, rating: c.rating });
