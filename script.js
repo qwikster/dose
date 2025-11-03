@@ -6,6 +6,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const calendar = document.getElementById('calendar');
     const resetBtn = document.getElementById('reset');
 
+    function parseLocalDateFromInput(value) {
+        if (!value || typeof value !== 'string') return null;
+        const parts = value.split('-').map(p => parseInt(p, 10));
+        if (parts.length !== 3 || parts.some(isNaN)) return null;
+        const [y, m, d] = parts;
+        return new Date(y, m - 1, d);
+    }
+
+    function startOfTodayLocal() {
+        const t = new Date();
+        return new Date(t.getFullYear(), t.getMonth(), t.getDate());
+    }
+
+    const FALLBACK_END_DATE = new Date(2026, 9, 31);
+
     addBtn.addEventListener('click', () => {
         const div = document.createElement('div');
         div.className = 'candy-entry';
@@ -39,30 +54,37 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = entry.querySelector('.candy-name').value.trim();
             const qty = parseInt(entry.querySelector('.candy-qty').value, 10);
             const rating = parseInt(entry.querySelector('.rating-slider').dataset.rating || '0', 10);
-            if (!name || isNaN(qty) || qty < 1 || rating === 0 || qty > 999) {
-                valid = false;
-                return;
-            }
-            candies.push({ name, qty, rating });
+            if (!name || isNaN(qty) || qty < 1 || rating === 0 || qty > 999) valid = false;
+            else candies.push({ name, qty, rating });
         });
         if (!valid) {
             alert('error processing! are all fields filled? max of a candy is 999, by the way');
             return;
         }
-        const startDateStr = document.getElementById('date').value;
-        const startDate = new Date(startDateStr);
-        const startDay = startDate.getDate();
-        const year = startDate.getFullYear();
-        const month = startDate.getMonth();
-        const numDays = new Date(year, month + 1, 0).getDate() - startDay + 1;
+
+        const startDate = startOfTodayLocal();
+        let endDate;
+        const endDateStr = document.getElementById('date')?.value;
+        const parsed = parseLocalDateFromInput(endDateStr);
+        if (!parsed || parsed < startDate) endDate = new Date(FALLBACK_END_DATE.getTime());
+        else endDate = parsed;
+
+        const msPerDay = 24 * 60 * 60 * 1000;
+        const utcStart = Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+        const utcEnd = Date.UTC(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+        const numDays = Math.floor((utcEnd - utcStart) / msPerDay) + 1;
+        if (numDays <= 0) {
+            alert('end date must be today or later');
+            return;
+        }
+
         const isBalanced = document.getElementById('mode-toggle').checked;
         let allItems = [];
         candies.forEach(c => {
-            for (let i = 0; i < c.qty; i++) {
-                allItems.push({ name: c.name, rating: c.rating });
-            }
+            for (let i = 0; i < c.qty; i++) allItems.push({ name: c.name, rating: c.rating });
         });
         const daysArray = Array.from({ length: numDays }, () => []);
+
         if (isBalanced) {
             allItems.sort((a, b) => b.rating - a.rating);
             const dayScores = Array(numDays).fill(0);
@@ -74,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 dayScores[day] += item.rating;
             });
             daysArray.forEach(day => day.sort((a, b) => b.rating - a.rating));
-        } else { // isBalanced == false
+        } else {
             for (let i = allItems.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [allItems[i], allItems[j]] = [allItems[j], allItems[i]];
@@ -83,25 +105,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 daysArray[index % numDays].push(item);
             });
         }
+
+        console.log('Start:', startDate.toDateString(), 'End:', endDate.toDateString(), 'Days:', numDays);
+
         calendar.innerHTML = '';
         for (let i = 0; i < numDays; i++) {
-            const currentDate = new Date(startDate);
-            currentDate.setDate(startDate.getDate() + i);
+            const currentDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + i);
             const dateStr = currentDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
             const div = document.createElement('div');
             div.className = 'calendar-day';
             div.textContent = dateStr;
             const dayItems = daysArray[i];
             if (dayItems.length > 0) {
-                if (dayItems.length > 1) {
-                    dayItems.sort((a, b) => a.rating - b.rating);
-                }
+                dayItems.sort((a, b) => b.rating - a.rating);
                 div.dataset.candy = dayItems.map(item => item.name).join(', ');
                 dayItems.forEach((item, idx) => {
-                    if (idx > 0) {
-                        const br = document.createElement('br');
-                        div.appendChild(br);
-                    }
+                    if (idx > 0) div.appendChild(document.createElement('br'));
                     const candySpan = document.createElement('span');
                     candySpan.textContent = item.name;
                     div.appendChild(candySpan);
@@ -109,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             calendar.appendChild(div);
         }
+
         inputSection.classList.add('hidden');
         calendarSection.classList.remove('hidden');
     });
