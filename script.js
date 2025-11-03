@@ -101,12 +101,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 const j = Math.floor(Math.random() * (i + 1));
                 [allItems[i], allItems[j]] = [allItems[j], allItems[i]];
             }
-            allItems.forEach((item, index) => {
-                daysArray[index % numDays].push(item);
-            });
+
+            const baseCount = Math.floor(allItems.length / numDays);
+            let remainder = allItems.length % numDays;
+            let index = 0;
+
+            const daysWithExtra = new Set();
+            while (daysWithExtra.size < remainder) {
+                daysWithExtra.add(Math.floor(Math.random() * numDays));
+            }
+
+            for (let d = 0; d < numDays; d++) {
+                const count = baseCount + (daysWithExtra.has(d) ? 1 : 0);
+                for (let i = 0; i < count && index < allItems.length; i++) {
+                    daysArray[d].push(allItems[index++]);
+                }
+            }
         }
 
-        console.log('Start:', startDate.toDateString(), 'End:', endDate.toDateString(), 'Days:', numDays);
+        console.log(`Planning ${allItems.length} candies across ${numDays} days`);
 
         calendar.innerHTML = '';
         for (let i = 0; i < numDays; i++) {
@@ -114,13 +127,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const dateStr = currentDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
             const div = document.createElement('div');
             div.className = 'calendar-day';
-            div.textContent = dateStr;
+            const dateLabel = document.createElement('div');
+            dateLabel.className = 'calendar-date';
+            dateLabel.textContent = dateStr;
+            div.appendChild(dateLabel);
             const dayItems = daysArray[i];
             if (dayItems.length > 0) {
                 dayItems.sort((a, b) => b.rating - a.rating);
                 div.dataset.candy = dayItems.map(item => item.name).join(', ');
                 dayItems.forEach((item, idx) => {
-                    if (idx > 0) div.appendChild(document.createElement('br'));
                     const candySpan = document.createElement('span');
                     candySpan.textContent = item.name;
                     div.appendChild(candySpan);
@@ -141,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function jumpscare() {
     document.body.style.backgroundImage = "url('job.png')";
-    panel = document.getElementById('input-section');
+    const panel = document.getElementById('input-section');
     panel.classList = 'panel hidden';
     document.getElementById('header').innerText = 'get jupscared idoit';
     document.getElementById('subtitle').innerText = 'i couldnt think of a better idea';

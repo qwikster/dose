@@ -242,11 +242,11 @@ a:hover {
 
 #calendar {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
     gap: 0.5rem;
     margin-top: 1rem;
     width: 100%;
-    align-items: center;
+    align-items: stretch;
 }
 
 .calendar-day {
@@ -256,8 +256,32 @@ a:hover {
     padding: 0.5rem;
     text-align: center;
     font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     position: relative;
     transition: all 0.3s ease;
+    height: 100%
+}
+
+.calendar-date {
+    font-weight: bold;
+    margin-bottom: 0.4rem;
+    position: relative;
+}
+
+.calendar-day span {
+    margin-top: 0.25rem;
+}
+
+.calendar-date::after {
+    content: "";
+    display: block;
+    width: 60%;
+    height: 1px;
+    background: #2a2a5f;
+    margin: 0.35rem auto 0 auto;
 }
 
 .calendar-day:hover {
