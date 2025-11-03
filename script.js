@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                     </div>
                 </div>
-            </div>`
+            </div>`;
         const buttons = document.getElementById('candy-buttons');
         form.insertBefore(div, buttons);
         form.insertBefore(document.createElement('hr'), buttons);
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let valid = true;
         entries.forEach(entry => {
             const name = entry.querySelector('.candy-name').value.trim();
-            const qty = parseInt(entry.querySelector('.candy-qty').value, 10)
+            const qty = parseInt(entry.querySelector('.candy-qty').value, 10);
             const rating = parseInt(entry.querySelector('.rating-slider').dataset.rating || '0', 10);
             if (!name || isNaN(qty) || qty < 1 || rating === 0 || qty > 999) {
                 valid = false;
@@ -51,6 +51,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const startDateStr = document.getElementById('date').value;
         const startDate = new Date(startDateStr);
+        const startDay = startDate.getDate();
+        const year = startDate.getFullYear();
+        const month = startDate.getMonth();
+        const numDays = new Date(year, month + 1, 0).getDate() - startDay + 1;
         const isBalanced = document.getElementById('mode-toggle').checked;
         let allItems = [];
         candies.forEach(c => {
@@ -58,38 +62,53 @@ document.addEventListener('DOMContentLoaded', () => {
                 allItems.push({ name: c.name, rating: c.rating });
             }
         });
+        const daysArray = Array.from({ length: numDays }, () => []);
         if (isBalanced) {
             allItems.sort((a, b) => b.rating - a.rating);
-            const result = [];
-            let left = 0, right = allItems.length - 1;
-            while (left <= right) {
-                if (left === right) {
-                    result.push(allItems[left]);
-                    break;
-                }
-                result.push(allItems[left]);
-                left++;
-                result.push(allItems[right]);
-                right--;
-            }
-            allItems = result;
+            const dayScores = Array(numDays).fill(0);
+            const dayIndices = Array.from({ length: numDays }, (_, i) => i);
+            allItems.forEach(item => {
+                dayIndices.sort((a, b) => dayScores[a] - dayScores[b]);
+                const day = dayIndices[0];
+                daysArray[day].push(item);
+                dayScores[day] += item.rating;
+            });
+            daysArray.forEach(day => day.sort((a, b) => b.rating - a.rating));
         } else { // isBalanced == false
             for (let i = allItems.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [allItems[i], allItems[j]] = [allItems[j], allItems[i]];
             }
+            allItems.forEach((item, index) => {
+                daysArray[index % numDays].push(item);
+            });
         }
         calendar.innerHTML = '';
-        allItems.forEach((item, index) => {
-            const dayDate = new Date(startDate);
-            dayDate.setDate(startDate.getDate() + index);
-            const dateStr = dayDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        for (let i = 0; i < numDays; i++) {
+            const currentDate = new Date(startDate);
+            currentDate.setDate(startDate.getDate() + i);
+            const dateStr = currentDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
             const div = document.createElement('div');
             div.className = 'calendar-day';
-            div.dataset.candy = item.name;
-            div.textContent = `${dateStr}:\n${item.name}`
+            div.textContent = dateStr;
+            const dayItems = daysArray[i];
+            if (dayItems.length > 0) {
+                if (dayItems.length > 1) {
+                    dayItems.sort((a, b) => a.rating - b.rating);
+                }
+                div.dataset.candy = dayItems.map(item => item.name).join(', ');
+                dayItems.forEach((item, idx) => {
+                    if (idx > 0) {
+                        const br = document.createElement('br');
+                        div.appendChild(br);
+                    }
+                    const candySpan = document.createElement('span');
+                    candySpan.textContent = item.name;
+                    div.appendChild(candySpan);
+                });
+            }
             calendar.appendChild(div);
-        });
+        }
         inputSection.classList.add('hidden');
         calendarSection.classList.remove('hidden');
     });
@@ -104,4 +123,6 @@ function jumpscare() {
     document.body.style.backgroundImage = "url('job.png')";
     panel = document.getElementById('input-section');
     panel.classList = 'panel hidden';
+    document.getElementById('header').innerText = 'get jupscared idoit';
+    document.getElementById('subtitle').innerText = 'i couldnt think of a better idea';
 }
