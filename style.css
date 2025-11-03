@@ -133,10 +133,16 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
 
 .candy-buttons {
     display: flex;
-    align-self: center;
+    align-items: center;
     gap: 0.5rem;
     flex-wrap: wrap;
-    justify-content: center;
+    align-self: center;
+    justify-content: space-evenly;
+    width: 70%;
+}
+
+.panel form .candy-buttons {
+    max-width: 100%;
 }
 
 .rating-slider {
@@ -351,20 +357,6 @@ hr {
     .candy-qty {
         width: unset;
     }
-}
-
-@media (max-width: 650px) {
-    .candy-buttons {
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 0.75rem;
-    }
-
-    #add-candy { order: 1; }
-    #candy-mode { order: 2; }
-    #date { order: 4; }
-    #generate { order: 3; }
-    .candy-buttons > div { display: none; }
 }
 
 @media (max-width: 425px) {

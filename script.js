@@ -39,14 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = entry.querySelector('.candy-name').value.trim();
             const qty = parseInt(entry.querySelector('.candy-qty').value, 10)
             const rating = parseInt(entry.querySelector('.rating-slider').dataset.rating || '0', 10);
-            if (!name || isNaN(qty) || qty < 1 || rating === 0) {
+            if (!name || isNaN(qty) || qty < 1 || rating === 0 || qty > 999) {
                 valid = false;
                 return;
             }
             candies.push({ name, qty, rating });
         });
         if (!valid) {
-            alert('Fill all fields!');
+            alert('error processing! are all fields filled? max of a candy is 999, by the way');
             return;
         }
         const startDateStr = document.getElementById('date').value;
