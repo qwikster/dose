@@ -99,3 +99,9 @@ document.addEventListener('DOMContentLoaded', () => {
         inputSection.classList.remove('hidden');
     });
 });
+
+function jumpscare() {
+    document.body.style.backgroundImage = "url('job.png')";
+    panel = document.getElementById('input-section');
+    panel.classList = 'panel hidden';
+}
